@@ -18,8 +18,10 @@ aws ec2 run-instances \
 
 ```bash
 nitro-cli build-enclave --docker-uri lukerogerson1/enclave-py-server:0.0.3 --output-file vsock_sample_server.eif && 
-nitro-cli run-enclave --eif-path vsock_sample_server.eif --cpu-count 1 --memory 512
+nitro-cli run-enclave --eif-path vsock_sample_server.eif --cpu-count 1 --memory 512 
 ```
+
+Optional: add `--debug-mode` to the `run-enclave` command to see the enclave logs.
 
 This outputs something like:
 
