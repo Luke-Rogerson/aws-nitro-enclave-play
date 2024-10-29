@@ -1,10 +1,12 @@
 import socket
 import argparse
 import sys
-import time 
+import time
+
 
 class VsockStream:
     """Client"""
+
     def __init__(self, conn_tmo=5):
         self.conn_tmo = conn_tmo
 
@@ -34,6 +36,7 @@ class VsockStream:
         """Close the client socket"""
         self.sock.close()
 
+
 def client_handler(args):
     client = VsockStream()
     endpoint = (args.cid, args.port)
@@ -48,9 +51,9 @@ def client_handler(args):
     msg = args.message
     signature = args.signature  # Only used in 'verify' operation
 
-    if operation == 'sign':
+    if operation == "sign":
         request_data = f"sign:{msg}"
-    elif operation == 'verify':
+    elif operation == "verify":
         request_data = f"verify:{msg}:{signature}"
 
     # Send the request (sign or verify)
@@ -73,19 +76,32 @@ def client_handler(args):
 
 
 def main():
-    parser = argparse.ArgumentParser(prog='vsock-client')
-    parser.add_argument("--version", action="version",
-                        help="Prints version information.",
-                        version='%(prog)s 0.1.0')
+    parser = argparse.ArgumentParser(prog="vsock-client")
+    parser.add_argument(
+        "--version",
+        action="version",
+        help="Prints version information.",
+        version="%(prog)s 0.1.0",
+    )
     subparsers = parser.add_subparsers(title="options")
 
-    client_parser = subparsers.add_parser("client", description="Client",
-                                          help="Connect to a given cid and port.")
+    client_parser = subparsers.add_parser(
+        "client", description="Client", help="Connect to a given cid and port."
+    )
     client_parser.add_argument("cid", type=int, help="The remote endpoint CID.")
     client_parser.add_argument("port", type=int, help="The remote endpoint port.")
-    client_parser.add_argument("--message", type=str, help="The message to be signed/verified.")
-    client_parser.add_argument("--operation", type=str, choices=['sign', 'verify'], help="Choose to sign or verify.")
-    client_parser.add_argument("--signature", type=str, help="Signature for verification.")
+    client_parser.add_argument(
+        "--message", type=str, help="The message to be signed/verified."
+    )
+    client_parser.add_argument(
+        "--operation",
+        type=str,
+        choices=["sign", "verify"],
+        help="Choose to sign or verify.",
+    )
+    client_parser.add_argument(
+        "--signature", type=str, help="Signature for verification."
+    )
     client_parser.set_defaults(func=client_handler)
 
     if len(sys.argv) < 2:
@@ -95,7 +111,6 @@ def main():
     args = parser.parse_args()
     args.func(args)
 
+
 if __name__ == "__main__":
     main()
-
-

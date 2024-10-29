@@ -1,3 +1,3 @@
-FROM python:3.11-alpine
+FROM python:3.7.9-alpine3.12
 COPY . .
-CMD ["python3", "client.py", "client", "3", "5005"]
+CMD ["/usr/local/bin/python3", "client.py", "client", "3", "5005"]

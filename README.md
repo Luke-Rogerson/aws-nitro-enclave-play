@@ -11,7 +11,8 @@ aws ec2 run-instances \
 --instance-type m8g.large \
 --key-name luke-nitro-deleteme \
 --enclave-options 'Enabled=true' \
---tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=luke-nitro-deleteme}]' 
+--tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=luke-nitro-deleteme-2}]' 
+--block-device-mappings '[{"DeviceName":"/dev/xvda","Ebs":{"VolumeSize":50,"VolumeType":"gp3"}}]'
 ```
 
 # Enclave creation commands

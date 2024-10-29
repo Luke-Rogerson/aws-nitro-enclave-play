@@ -11,4 +11,4 @@ RUN pip install --no-cache-dir web3==7.4.0
 
 COPY server.py .
 
-CMD ["python3", "server.py", "server", "5005"]
+CMD ["/usr/local/bin/python3", "server.py", "server", "5005"]
